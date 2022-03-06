@@ -15,6 +15,8 @@ public class Main {
 
         Game game = new Game(player1, player2);
         game.displayRolls();
+
+        System.out.println("Let's start!\n\n\n");
         
         while (!game.isOver()) {
             game.takeTurn(player1);
@@ -28,9 +30,9 @@ public class Main {
             System.out.println();
         }
 
-        if (player1.getLevel() == 6 && player2.getLevel() == 6){
+        if (player1.getLevel() == 4 && player2.getLevel() == 4){
             System.out.println("It's a tie!");
-        } else if (player1.getLevel() == 6){
+        } else if (player1.getLevel() == 4){
             System.out.println(player1 + " wins! Thanks for playing");
         } else {
             System.out.println(player2 + " wins! Thanks for playing");

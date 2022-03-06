@@ -1,19 +1,14 @@
 package game;
 
-// import java.util.ArrayList;
-// import java.util.List;
-
 public class Player {
     private final String name;
     private int points;
     private int level;
-    // private List<PowerUp> powerUps;
 
     public Player(String name) {
         this.name = name;
         this.points = 0;
         this.level = 1;
-        // this.powerUps = new ArrayList<>();
     }
 
     public int getLevel() {
@@ -25,22 +20,6 @@ public class Player {
     public int getPoints() {
         return points;
     }
-    // public List<PowerUp> getPowerUps() {
-    //     return powerUps;
-    // }
-
-    // public void addPowerUp(PowerUp pup) {
-    //     powerUps.add(pup);
-    // }
-
-    // public boolean usePowerUp(PowerUp pup) {
-    //     if (powerUps.contains(pup)){
-    //         powerUps.remove(pup); 
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
 
     public void changePoints(int p) {
         points = points + p;

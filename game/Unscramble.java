@@ -37,9 +37,7 @@ public class Unscramble {
             player.changePoints(1);
         } else {
             System.out.println("Sorry...the correct answer was " + country);
-            player.changePoints(-1);
         }
-        // in2.close();
 
     }
 }

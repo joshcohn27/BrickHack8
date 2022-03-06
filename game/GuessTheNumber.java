@@ -9,10 +9,16 @@ public class GuessTheNumber {
     public static void guessTheNumber(Player player) {
         
         int guesses = 3;
+        if (player.getLevel() == 2) {
+            guesses = 5;
+        }
+        if (player.getLevel() == 3) {
+            guesses = 6;
+        }
         int range = player.getLevel()*10;
         int answer = random.nextInt(range) + 1;
         
-        System.out.print("High/Low Game! Guess the number between 1 and " + range + " in 3 or less guesses: ");
+        System.out.print("High/Low Game! Guess the number between 1 and " + range + " in " + guesses + " or less guesses: ");
         Scanner in3 = new Scanner(System.in);
         int guess = in3.nextInt();
         boolean failed = true;
@@ -39,6 +45,5 @@ public class GuessTheNumber {
             System.out.println(player.getName() + " lost a point!");
             player.changePoints(-1);
         }
-        // in3.close();
     }
 }
