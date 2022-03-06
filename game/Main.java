@@ -12,7 +12,6 @@ public class Main {
         Player player1 = new Player(in.nextLine());
         System.out.print("Player 2, enter your name: ");
         Player player2 = new Player(in.nextLine());
-        in.close();
 
         Game game = new Game(player1, player2);
         game.displayRolls();
@@ -37,7 +36,7 @@ public class Main {
             System.out.println(player2 + " wins! Thanks for playing");
         }
         
-        
+        in.close();
 
     }
 }

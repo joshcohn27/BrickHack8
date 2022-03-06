@@ -17,7 +17,7 @@ public class Game {
     private Random random;
     private Map<Integer, String> countries;
     private boolean over;
-    private Scanner in;
+    // private Scanner in;
 
     public Game(Player p1, Player p2) throws IOException {
         this.p1 = p1;
@@ -25,46 +25,46 @@ public class Game {
         this.random = new Random();
         readFile("game/countries.txt");
         this.over = false;
-        this.in = new Scanner(System.in);
+        // this.in = new Scanner(System.in);
     }
 
     private int rollDice() {
         return random.nextInt(6) + 1;
     }
 
-    private void guessTheNumber(Player player) {
+    // private void guessTheNumber(Player player) {
         
-        int guesses = 3;
-        int range = player.getLevel()*10;
-        int answer = random.nextInt(range) + 1;
-        System.out.print("High/Low Game! Guess the number between 1 and " + range + " in 3 or less guesses: ");
-        int guess = in.nextInt();
-        boolean failed = true;
-        while (guesses > 0){
-            if (guess == answer) {
-                System.out.println("That's it!");
-                player.changePoints(1);
-                failed = false;
-                break;
-            } else if (guess < answer) {
-                System.out.println("Too low!");
-            } else {
-                System.out.println("Too high!");
-            }
+    //     int guesses = 3;
+    //     int range = player.getLevel()*10;
+    //     int answer = random.nextInt(range) + 1;
+    //     System.out.print("High/Low Game! Guess the number between 1 and " + range + " in 3 or less guesses: ");
+    //     int guess = in.nextInt();
+    //     boolean failed = true;
+    //     while (guesses > 0){
+    //         if (guess == answer) {
+    //             System.out.println("That's it!");
+    //             player.changePoints(1);
+    //             failed = false;
+    //             break;
+    //         } else if (guess < answer) {
+    //             System.out.println("Too low!");
+    //         } else {
+    //             System.out.println("Too high!");
+    //         }
             
-            if (guesses > 1) {
-                System.out.print("Guess again: ");
-                guess = in.nextInt();
-            }
-            guesses--;
-        }
-        if (failed) {
-            System.out.println("Sorry, the number was " + answer);
-            System.out.println(player.getName() + " lost a point!");
-            player.changePoints(-1);
-        }
+    //         if (guesses > 1) {
+    //             System.out.print("Guess again: ");
+    //             guess = in.nextInt();
+    //         }
+    //         guesses--;
+    //     }
+    //     if (failed) {
+    //         System.out.println("Sorry, the number was " + answer);
+    //         System.out.println(player.getName() + " lost a point!");
+    //         player.changePoints(-1);
+    //     }
         
-    }
+    // }
 
     private void readFile (String filename) throws IOException {
         FileReader fileReader = new FileReader(filename);
@@ -83,45 +83,16 @@ public class Game {
         reader.close();
     }
 
-    private String scramble(String word) {
-        List<String> letters = Arrays.asList(word.split(""));
-        Collections.shuffle(letters);
-        String shuffled = "";
-        for (String letter : letters) {
-            shuffled += letter;
-        }
-        return shuffled;
-    }
-
-    private void unscramble(Player player) {
-        int index = random.nextInt(countries.size());
-        while (!countries.containsKey(index)) {
-            index = random.nextInt(countries.size());
-        }
-        String country = countries.remove(index + 1);
-        String scrambled = scramble(country);
-
-        System.out.println("Unscramble the letters to get the name of a country:");
-        System.out.println(scrambled);
-        String guess = in.nextLine().toLowerCase();
-        if (guess.equals(country)) {
-            System.out.println("That's right!");
-            player.changePoints(1);
-        } else {
-            System.out.println("Sorry...the correct answer was " + country);
-            player.changePoints(-1);
-        }
-
-    }
 
     public void takeTurn(Player player) {
+        Scanner in4 = new Scanner(System.in);
         int roll = rollDice();
         System.out.println(player.getName() + "'s roll: " + roll);
 
         if (roll == 1 || roll == 4) {
-            guessTheNumber(player);
+            GuessTheNumber.guessTheNumber(player);
         } else if (roll == 2) {
-            unscramble(player);
+            Unscramble.unscramble(player, countries);
         } else if (roll == 3) {
             System.out.println("Sorry, you rolled a 3. Lose a point!");
             player.changePoints(-1);
@@ -130,10 +101,10 @@ public class Game {
             player.changePoints(1);
         } else {
             System.out.println("Choose your game! Type 'U' for unscramble, and anything else for high/low");
-            if (in.nextLine().toLowerCase().equals("u")){
-                unscramble(player);
+            if (in4.nextLine().toLowerCase().equals("u")){
+                Unscramble.unscramble(player, countries);
             } else {
-                guessTheNumber(player);
+                GuessTheNumber.guessTheNumber(player);
             }
         }
 
@@ -147,8 +118,9 @@ public class Game {
         }
         if (player.getLevel() > 5) {
             over = true;
-            in.close();
+            
         }
+        // in4.close();
     }
 
     public boolean isOver() {
@@ -169,6 +141,7 @@ public class Game {
         System.out.println("3: Lose a point");
         System.out.println("4: Country Unscramble");
         System.out.println("5: Free point");
-        System.out.println("6: Pick your poison\n");
+        System.out.println("6: Pick your poison");
+        System.out.println();
     }
 }
